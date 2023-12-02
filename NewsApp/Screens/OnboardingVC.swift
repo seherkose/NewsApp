@@ -38,15 +38,17 @@ extension OnboardingVC {
         
         pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
         
-        let page1 = SetOnboardingVC(imageName: "onb3",
-                                    titleText: "News From Around The World",
-                                    subtitleText: "Best time to read, take your time to read a little more of this world.")
-        let page2 = SetOnboardingVC(imageName: "onb2",
-                                    titleText: "Best Time to Read",
-                                    subtitleText: "Your Daily Dose of International News")
-        let page3 = SetOnboardingVC(imageName: "onb1",
-                                    titleText: "Start Your News Journey",
-                                    subtitleText: "Swipe, Discover, and Stay Updated")
+        let page1 = SetOnboardingVC(imageName: Constants.OnboardingVC.page1.imageName1,
+                                    titleText: Constants.OnboardingVC.page1.titleText1,
+                                    subtitleText: Constants.OnboardingVC.page1.subtitleText1)
+        
+        let page2 = SetOnboardingVC(imageName: Constants.OnboardingVC.page2.imageName2,
+                                    titleText: Constants.OnboardingVC.page2.titleText2,
+                                    subtitleText: Constants.OnboardingVC.page2.subtitleText2)
+        
+        let page3 = SetOnboardingVC(imageName: Constants.OnboardingVC.page3.imageName3,
+                                    titleText: Constants.OnboardingVC.page3.titleText3,
+                                    subtitleText: Constants.OnboardingVC.page3.subtitleText3)
         let page4 = LoginVC()
         
         pages.append(page1)
@@ -66,13 +68,13 @@ extension OnboardingVC {
         
         skipButton.translatesAutoresizingMaskIntoConstraints = false
         skipButton.setTitleColor(.gray, for: .normal)
-        skipButton.setTitle("SKIP", for: .normal)
+        skipButton.setTitle(Constants.OnboardingVC.skipButton, for: .normal)
         skipButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         skipButton.addTarget(self, action: #selector(skipTapped(_:)), for: .primaryActionTriggered)
         
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.setTitleColor(UIColor(hex: "A63251"), for: .normal)
-        nextButton.setTitle("NEXT", for: .normal)
+        nextButton.setTitle(Constants.OnboardingVC.nextButton, for: .normal)
         nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         nextButton.addTarget(self, action: #selector(nextTapped(_:)), for: .primaryActionTriggered)
     }

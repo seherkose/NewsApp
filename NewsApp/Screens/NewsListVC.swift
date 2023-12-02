@@ -45,14 +45,12 @@ class NewsListVC: UIViewController {
     }
     
     func configureViewController(){
-        
         view.backgroundColor = UIColor(hex: "F8F0E5")
         tabBarController?.tabBar.barTintColor = UIColor(hex: "F8F0E5")
         navigationController?.navigationBar.barTintColor = UIColor(hex: "F8F0E5")
         navigationController?.navigationBar.prefersLargeTitles = false
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease"), style: .done, target: self, action: #selector(tappedSideMenu))
-        
     }
     
     @objc func tappedSideMenu() {
@@ -105,7 +103,7 @@ class NewsListVC: UIViewController {
                 self.updateData(on: self.article)
                 
             case .failure(let error):
-                self.presentNAAlertOnMainThread(title: "Bad Stuff Happened", message: error.rawValue, buttonTitle: "OK")
+                self.presentNAAlertOnMainThread(title: Constants.NewsListVC.badStuff, message: error.rawValue, buttonTitle: Constants.NewsListVC.okMessage)
             }
         }
     }

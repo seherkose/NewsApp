@@ -9,9 +9,9 @@ import UIKit
 
 class ForgotPasswordVC: UIViewController {
     
-    private let headerView = AuthHeaderView(title: "Forgot Password?", subTitle: "Reset your password..")
+    private let headerView = AuthHeaderView(title: Constants.ForgotPasswordVC.headerForgotPassword, subTitle: Constants.ForgotPasswordVC.headerForgotPasswordSubTitle)
     private let emailField = AuthTextField(fieldType: .email)
-    private let resetPasswordButton = AuthButton(title: "Sign Up", hasBackground: true, fontSize: .big)
+    private let resetPasswordButton = AuthButton(title: Constants.ForgotPasswordVC.signUp, hasBackground: true, fontSize: .big)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,17 +57,17 @@ class ForgotPasswordVC: UIViewController {
         let email = self.emailField.text ?? ""
         
         if !Validator.isValidEmail(for: email){
-            presentNAAlertOnMainThread(title: "Error!", message: "Invalid Email", buttonTitle: "OK")
+            presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.errorMessage, message: Constants.ForgotPasswordVC.invalidMail, buttonTitle: Constants.ForgotPasswordVC.okMessage)
             return
         }
         
         AuthService.shared.forgotPassword(with: email) { [weak self] error in
             guard let self = self else { return }
             if let error = error{
-                presentNAAlertOnMainThread(title: "Error Password Reset!", message: error.localizedDescription, buttonTitle: "OK")
+                presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.passwordReset, message: error.localizedDescription, buttonTitle: Constants.ForgotPasswordVC.okMessage)
                 return
             }
-            presentNAAlertOnMainThread(title: "Password Reset", message: "The password reset link has been sent to your email address.", buttonTitle: "OK")
+            presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.passwordResetTitle, message: Constants.ForgotPasswordVC.passwordResetMessage, buttonTitle: Constants.ForgotPasswordVC.okMessage)
         }
         
     }

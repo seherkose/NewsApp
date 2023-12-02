@@ -71,13 +71,13 @@ class InfoScreenVC: UIViewController, UIScrollViewDelegate{
             switch result {
             case .success(let isArticleAlreadyInFavorites):
                 if isArticleAlreadyInFavorites {
-                    self.presentNAAlertOnMainThread(title: "Already Favorited", message: "This article is already in your favorites.", buttonTitle: "OK")
+                    self.presentNAAlertOnMainThread(title: Constants.InfoScreen.alreadyFavorited, message: Constants.InfoScreen.alreadyFavoritedMessage, buttonTitle: Constants.InfoScreen.okMessage)
                 } else {
                     self.addArticleToFavorites(articleURL: articleURL)
                 }
                 
             case .failure(let error):
-                self.presentNAAlertOnMainThread(title: "Error", message: error.rawValue, buttonTitle: "OK")
+                self.presentNAAlertOnMainThread(title: Constants.InfoScreen.errorMessage, message: error.rawValue, buttonTitle: Constants.InfoScreen.okMessage)
             }
         }
     }
@@ -103,17 +103,17 @@ class InfoScreenVC: UIViewController, UIScrollViewDelegate{
                         guard let self = self else { return }
                         
                         if let error = error {
-                            self.presentNAAlertOnMainThread(title: "Something went wrong!", message: error.rawValue, buttonTitle: "OK")
+                            self.presentNAAlertOnMainThread(title: Constants.InfoScreen.wentWrongMessage, message: error.rawValue, buttonTitle: Constants.InfoScreen.okMessage)
                         } else {
-                            self.presentNAAlertOnMainThread(title: "Success!", message: "You have successfully favorited this article 🎉", buttonTitle: "OK")
+                            self.presentNAAlertOnMainThread(title: Constants.InfoScreen.successTitle, message: Constants.InfoScreen.successMessage, buttonTitle: Constants.InfoScreen.okMessage)
                         }
                     }
                 } else {
-                    self.presentNAAlertOnMainThread(title: "Error", message: "Selected article not found", buttonTitle: "OK")
+                    self.presentNAAlertOnMainThread(title: Constants.InfoScreen.errorMessage, message: Constants.InfoScreen.articleNotFound, buttonTitle: Constants.InfoScreen.okMessage)
                 }
                 
             case .failure(let error):
-                self.presentNAAlertOnMainThread(title: "Error Fetching News", message: error.rawValue, buttonTitle: "OK")
+                self.presentNAAlertOnMainThread(title: Constants.InfoScreen.errorFetchingNews, message: error.rawValue, buttonTitle: Constants.InfoScreen.okMessage)
             }
         }
     }

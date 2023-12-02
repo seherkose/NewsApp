@@ -25,7 +25,7 @@ class FavoritesListVC: UIViewController {
     
     func configureViewController(){
         view.backgroundColor = UIColor(hex: "F8F0E5")
-        title = "Favorite News"
+        title = Constants.FavoritesListVC.favoriteNews
         navigationController?.navigationBar.prefersLargeTitles = true
         
     }
@@ -46,7 +46,7 @@ class FavoritesListVC: UIViewController {
             switch result{
             case .success(let favorites):
                 if favorites.isEmpty{
-                    self.showEmptyStateView(with: "No Favorites?\nAdd one..", in: self.view )
+                    self.showEmptyStateView(with: Constants.FavoritesListVC.noFavorites, in: self.view )
                 }else {
                     self.favorites = favorites
                     DispatchQueue.main.async {
@@ -55,7 +55,7 @@ class FavoritesListVC: UIViewController {
                     }
                 }
             case .failure(let error):
-                self.presentNAAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "OK")
+                self.presentNAAlertOnMainThread(title: Constants.FavoritesListVC.wentWrong, message: error.rawValue, buttonTitle: Constants.FavoritesListVC.okMessage )
             }
         }
     }
@@ -100,7 +100,7 @@ extension FavoritesListVC: UITableViewDataSource, UITableViewDelegate{
         PersistenceManager.updateWith(favorite: favorite, actionType: .remove) { [weak self]error in
             guard let self = self else {return}
             guard let error = error else {return}
-            self.presentNAAlertOnMainThread(title: "Unable to remove", message: error.rawValue, buttonTitle: "OK")
+            self.presentNAAlertOnMainThread(title: Constants.FavoritesListVC.unableRemove , message: error.rawValue, buttonTitle: Constants.FavoritesListVC.okMessage)
         }
     }
 }
