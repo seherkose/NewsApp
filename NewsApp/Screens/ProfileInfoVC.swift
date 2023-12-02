@@ -43,24 +43,24 @@ class ProfileInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(hex: "F8F0E5")
-        showLoadingView()
+        //showLoadingView()
         self.termsTextView.delegate = self
+        setupUI()
         
-        AuthService.shared.fetchUser { [weak self] authuser, error in
-            guard let self = self else {return}
-            if let error = error{
-                presentNAAlertOnMainThread(title: "Error!", message: "Fetching User Error", buttonTitle: "OK")
-                return
-            }
-            if let authuser = authuser {
-                dismissLoadingView()
-                setupUI()
-                self.label.text = "Username: \n \(authuser.username)\n\n E-mail address:\n \(authuser.email)"
-            }
-        }
+//        AuthService.shared.fetchUser { [weak self] authuser, error in
+//            guard let self = self else {return}
+//            if let error = error{
+//                presentNAAlertOnMainThread(title: "Error!", message: "Fetching User Error", buttonTitle: "OK")
+//                return
+//            }
+//            if let authuser = authuser {
+//                dismissLoadingView()
+//                setupUI()
+//                self.label.text = "Username: \n \(authuser.username)\n\n E-mail address:\n \(authuser.email)"
+//            }
+//        }
         
     }
-    
     private func setupUI() {
         view.addSubview(headerImageView)
         view.addSubview(label)
