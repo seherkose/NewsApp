@@ -9,7 +9,9 @@
 import UIKit
 
 class LoginVC: UIViewController {
+  
     
+    var viewModel = LoginViewModel()
     
     private let headerView = AuthHeaderView(title: Constants.Login.headerSignIn, subTitle: Constants.Login.headerHeadLine)
     private let emailField = AuthTextField(fieldType: .email)
@@ -21,6 +23,8 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
+        
         self.setUpUI()
         self.signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         self.newUserButton.addTarget(self, action: #selector(didTapNewUser), for: .touchUpInside)
@@ -85,31 +89,7 @@ class LoginVC: UIViewController {
         
     }
     @objc private func didTapSignIn(){
-        let loginRequest = LoginUserRequest(
-            email: self.emailField.text ?? "",
-            password: self.passwordField.text ?? "")
-        //email check
-        if !Validator.isValidEmail(for: loginRequest.email){
-            presentNAAlertOnMainThread(title: Constants.Login.invalidEmail, message: Constants.Login.invalidEmailMessage, buttonTitle: Constants.Login.okMessage)
-            return
-        }
-        //password check
-        if !Validator.isValidPassword(for: loginRequest.password){
-            presentNAAlertOnMainThread(title: Constants.Login.invalidPassword, message: Constants.Login.invalidPasswordMessage, buttonTitle: Constants.Login.okMessage)
-            return
-        }
-        AuthService.shared.signIn(with: loginRequest) { [weak self] error in
-            guard let self = self else{return}
-            if let error = error{
-                presentNAAlertOnMainThread(title: Constants.Login.signInError, message: error.localizedDescription, buttonTitle: Constants.Login.okMessage)
-                return
-            }
-            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
-                sceneDelegate.checkAuthentication()
-            }else{
-                presentNAAlertOnMainThread(title: Constants.Login.errorMessage, message: error!.localizedDescription, buttonTitle: Constants.Login.okMessage)
-            }
-        }
+        viewModel.signIn(email: emailField.text ?? "" , password: passwordField.text ?? "")
     }
     
     @objc private func didTapNewUser(){
@@ -122,5 +102,30 @@ class LoginVC: UIViewController {
         vc.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(vc, animated: true)
     }
+}
+
+extension LoginVC: LoginViewModelDelegate {
+    
+    func successLogin(_ message: String) {
+        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
+            sceneDelegate.checkAuthentication()
+        }else{
+            presentNAAlertOnMainThread(title: Constants.Login.errorMessage, message: message, buttonTitle: Constants.Login.okMessage)
+        }
+    }
+    
+    func showErrorSignIn(_ message: String) {
+    presentNAAlertOnMainThread(title: Constants.Login.signInError, message: message, buttonTitle: Constants.Login.okMessage)
+    }
+    
+    func showPasswordValidationError() {
+            presentNAAlertOnMainThread(title: Constants.Login.invalidPassword, message: Constants.Login.invalidPasswordMessage, buttonTitle: Constants.Login.okMessage)
+    }
+    
+    func showEmailValidationError() {
+        presentNAAlertOnMainThread(title: Constants.Login.invalidEmail, message: Constants.Login.invalidEmailMessage, buttonTitle: Constants.Login.okMessage)
+    }
+    
+    
 }
 
