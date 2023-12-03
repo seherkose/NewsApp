@@ -23,7 +23,7 @@ extension UIViewController{
         containerView = UIView(frame: view.bounds)
         view.addSubview(containerView)
         
-        containerView.backgroundColor =  UIColor(hex: "F8F0E5")
+        containerView.backgroundColor =  .beige
         containerView.alpha = 0
         
         UIView.animate(withDuration: 0.25) {containerView.alpha = 0.8}
