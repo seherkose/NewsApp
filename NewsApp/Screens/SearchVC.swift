@@ -8,18 +8,15 @@
 import UIKit
 
 class SearchVC: UIViewController {
-    
-    
-    
+   
     let logoImageView = UIImageView()
     let countryTextField = NATextField()
-    let callToActionButton = NAButton(backgroundColor: UIColor(hex: "235B8C"), title: "SHOW NEWS")
+    let callToActionButton = NAButton(backgroundColor: .mediumBlue, title: Constants.SearchVC.showNews)
     
     var isNewsTitleEntered: Bool{
         return !countryTextField.text!.isEmpty
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,9 +34,7 @@ class SearchVC: UIViewController {
     }
     
     func configureViewController(){
-        view.backgroundColor = UIColor(hex: "F8F0E5")
-        
-        
+        view.backgroundColor = .beige
     }
     
     func createDismissKeyboardTapGesture(){
@@ -47,10 +42,9 @@ class SearchVC: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    
     @objc func pushNewsListVC() {
         guard isNewsTitleEntered else {
-            presentNAAlertOnMainThread(title: "Empty Country", message: "Please enter a country name 😊", buttonTitle: "OK")
+            presentNAAlertOnMainThread(title: Constants.SearchVC.emptyCountry, message: Constants.SearchVC.emptyCountryMessage , buttonTitle: Constants.SearchVC.okMessage)
             return
         }
         
@@ -75,7 +69,6 @@ class SearchVC: UIViewController {
         navigationController?.pushViewController(newsListVC, animated: true)
     }
     
-    
     func configureLogoImageView(){
         view.addSubview(logoImageView)
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +79,6 @@ class SearchVC: UIViewController {
             logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImageView.heightAnchor.constraint(equalToConstant: 300),
             logoImageView.widthAnchor.constraint(equalToConstant: 450)
-            
         ])
     }
     

@@ -10,7 +10,6 @@ import UIKit
 protocol SideMenuDelegate: AnyObject {
     func selectCategory(_ category: String)
 }
-
 class SideMenuVC: UIViewController {
     
     weak var delegate: SideMenuDelegate?
@@ -29,7 +28,7 @@ class SideMenuVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SideBarCell.self, forCellReuseIdentifier: SideBarCell.reuseID)
-        tableView.backgroundColor = UIColor(hex: "0F2C59")
+        tableView.backgroundColor = .darkBlue
         tableView.layer.cornerRadius = 15
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,8 +48,8 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SideBarCell.reuseID) as! SideBarCell
         cell.titleLabel.text = Categories.allCases[indexPath.row].rawValue
-        cell.backgroundColor = UIColor(hex: "0F2C59")
-        cell.selectionStyle = .none
+        cell.backgroundColor = .darkBlue
+        cell.selectionStyle  = .none
         return cell
     }
     

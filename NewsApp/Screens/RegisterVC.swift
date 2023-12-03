@@ -25,7 +25,7 @@ class RegisterVC: UIViewController {
         attributedString.addAttribute(.link, value: "privacy://privacyPolicy", range: (attributedString.string as NSString).range(of: "Privacy Policy"))
         
         let tv = UITextView()
-        tv.linkTextAttributes = [.foregroundColor: UIColor.systemBlue ]
+        tv.linkTextAttributes = [.foregroundColor: UIColor.systemBlue]
         tv.backgroundColor = .clear
         tv.attributedText = attributedString
         tv.textColor =  .label
@@ -54,7 +54,7 @@ class RegisterVC: UIViewController {
     }
     
     private func setUpUI(){
-        self.view.backgroundColor = UIColor(hex: "F8F0E5")
+        self.view.backgroundColor = .beige
         self.view.addSubview(headerView)
         self.view.addSubview(usernameField)
         self.view.addSubview(emailField)

@@ -34,7 +34,7 @@ class WebViewController: UIViewController {
     
     private func setUpUI(){
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTappedDone))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: Constants.WebViewControllerVC.done, style: .done, target: self, action: #selector(didTappedDone))
         self.navigationController?.navigationBar.backgroundColor = .secondarySystemBackground
         
         self.view.addSubview(webView)
@@ -45,13 +45,9 @@ class WebViewController: UIViewController {
             self.webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-            
         ])
-        
     }
     @objc private func didTappedDone(){
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
 }

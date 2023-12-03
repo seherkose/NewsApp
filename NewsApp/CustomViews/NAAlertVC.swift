@@ -10,9 +10,9 @@ import UIKit
 class NAAlertVC: UIViewController {
     
     let containerView = UIView()
-    let titleLabel = NATitleLabel(textAlignment: .center, fontSize: 20, textColor: UIColor(hex: "A63251"))
+    let titleLabel = NATitleLabel(textAlignment: .center, fontSize: 20, textColor: .darkPink)
     let messageLabel = NABodyLabel(textAlignment: .center, fontSize: 18, textColor: .gray)
-    let actionButton = NAButton(backgroundColor: UIColor(hex: "A63251"), title: "OK")
+    let actionButton = NAButton(backgroundColor: .darkPink, title: Constants.NewsListVC.okMessage)
     
     var alertTitle:String?
     var message: String?

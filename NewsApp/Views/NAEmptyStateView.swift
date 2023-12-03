@@ -17,18 +17,15 @@ class NAEmptyStateView: UIView {
         configure()
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     init(message: String) {
         super.init(frame: .zero)
         messageLabel.text = message
         configure()
     }
-    
     
     private func configure() {
         
@@ -37,7 +34,6 @@ class NAEmptyStateView: UIView {
         
         messageLabel.numberOfLines  = 3
         messageLabel.textColor      = .secondaryLabel
-        
         logoImageView.image         = UIImage(named: "empty-state")
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         

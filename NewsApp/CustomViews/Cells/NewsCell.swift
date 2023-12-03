@@ -28,11 +28,10 @@ class NewsCell: UICollectionViewCell {
     }
     
     private func configure(){
-        backgroundColor = UIColor(hex: "F8F0E5")
+        backgroundColor = .beige
         addSubview(newsImageView)
         addSubview(titleLabel)
-        
-        
+
         let padding: CGFloat = 8
         NSLayoutConstraint.activate([
             newsImageView.topAnchor.constraint(equalTo: topAnchor, constant: 80),

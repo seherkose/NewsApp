@@ -55,7 +55,7 @@ class InfoScreenVC: UIViewController, UIScrollViewDelegate{
         navigationItem.leftBarButtonItem = doneButton
         navigationItem.rightBarButtonItem = favoriteButton
         
-        view.backgroundColor = UIColor(hex: "F8F0E5")
+        view.backgroundColor = .beige
         
     }
     

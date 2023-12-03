@@ -22,7 +22,7 @@ class AuthTextField: UITextField {
         self.authFieldType = fieldType
         super.init(frame: .zero)
         
-        self.backgroundColor = UIColor(hex: "EADBC8")
+        self.backgroundColor = .darkBeige
         self.layer.cornerRadius = 10
         
         self.returnKeyType = .done

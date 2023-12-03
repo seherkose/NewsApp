@@ -26,7 +26,6 @@ struct Constants {
         static let signInError = "Error Signing In"
         static let errorMessage = "Error!"
     }
-    
     struct InfoScreen {
         static let alreadyFavorited = "Already Favorited"
         static let alreadyFavoritedMessage = "This article is already in your favorites."
@@ -38,7 +37,6 @@ struct Constants {
         static let articleNotFound = "Selected article not found"
         static let errorFetchingNews = "Error Fetching News"
     }
-    
     struct ForgotPasswordVC {
         static let headerForgotPassword = "Forgot Password?"
         static let headerForgotPasswordSubTitle = "Reset your password.."
@@ -49,7 +47,6 @@ struct Constants {
         static let passwordReset = "Error Password Reset!"
         static let passwordResetTitle = "Password Reset"
         static let passwordResetMessage = "The password reset link has been sent to your email address."
-        
     }
     struct OnboardingVC {
         struct page1 {
@@ -57,19 +54,16 @@ struct Constants {
             static let titleText1 = "News From Around The World"
             static let subtitleText1 = "Best time to read, take your time to read a little more of this world."
         }
-        
         struct page2 {
             static let imageName2 = "onb2"
             static let titleText2 =  "Best Time to Read"
             static let subtitleText2 = "Your Daily Dose of International News"
         }
-        
         struct page3 {
             static let imageName3 =  "onb1"
             static let titleText3 =  "Start Your News Journey"
             static let subtitleText3 =  "Swipe, Discover, and Stay Updated"
         }
-        
         static let nextButton = "NEXT"
         static let skipButton = "SKIP"
 
@@ -80,5 +74,17 @@ struct Constants {
         static let wentWrong = "Something went wrong"
         static let okMessage = "OK"
         static let unableRemove = "Unable to remove"
+    }
+    
+    struct SearchVC {
+        static let showNews = "SHOW NEWS"
+        static let emptyCountry = "Empty Country"
+        static let emptyCountryMessage = "Please enter a country name 😊"
+        static let okMessage = "OK"
+    }
+    
+    struct WebViewControllerVC {
+        static let done = "Done"
+        
     }
 }

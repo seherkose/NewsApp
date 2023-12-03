@@ -35,7 +35,7 @@ class LoginVC: UIViewController {
     }
     
     private func setUpUI(){
-        self.view.backgroundColor = UIColor(hex: "F8F0E5")
+        self.view.backgroundColor = .beige
         self.view.addSubview(headerView)
         self.view.addSubview(emailField)
         self.view.addSubview(passwordField)

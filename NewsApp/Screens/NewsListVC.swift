@@ -45,9 +45,9 @@ class NewsListVC: UIViewController {
     }
     
     func configureViewController(){
-        view.backgroundColor = UIColor(hex: "F8F0E5")
-        tabBarController?.tabBar.barTintColor = UIColor(hex: "F8F0E5")
-        navigationController?.navigationBar.barTintColor = UIColor(hex: "F8F0E5")
+        view.backgroundColor = .beige
+        tabBarController?.tabBar.barTintColor = .beige
+        navigationController?.navigationBar.barTintColor = .beige
         navigationController?.navigationBar.prefersLargeTitles = false
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease"), style: .done, target: self, action: #selector(tappedSideMenu))
@@ -70,7 +70,7 @@ class NewsListVC: UIViewController {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createFlowLayout(in: view))
         view.addSubview(collectionView)
         collectionView.delegate = self
-        collectionView.backgroundColor = UIColor(hex: "F8F0E5")
+        collectionView.backgroundColor = .beige
         collectionView.register(NewsCell.self, forCellWithReuseIdentifier: NewsCell.reuseID)
     }
     
@@ -80,7 +80,7 @@ class NewsListVC: UIViewController {
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search for a title.."
         navigationItem.searchController = searchController
-        searchController.searchBar.tintColor = UIColor(hex:"A63251")
+        searchController.searchBar.tintColor = .darkPink
         searchController.searchBar.layer.cornerRadius = 20
         
     }

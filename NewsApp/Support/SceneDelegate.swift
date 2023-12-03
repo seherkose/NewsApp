@@ -98,11 +98,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createTabbar() -> UITabBarController{
         let tabbar = UITabBarController()
-        UITabBar.appearance().tintColor = UIColor(hex: "235B8C")
+        UITabBar.appearance().tintColor = .mediumBlue
         UITabBar.appearance().unselectedItemTintColor = .gray
         tabbar.viewControllers = [createSearchNavigationController(), createFavoritesListNavigationController(), createProfileInfoNavigationController()]
         
-        UITabBar.appearance().backgroundColor = UIColor(hex: "F8F0E5")
+        UITabBar.appearance().backgroundColor = .beige
         
         return tabbar
     }
@@ -115,7 +115,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func configureNavigationBar(){
-        UINavigationBar.appearance().tintColor = UIColor(hex: "235B8C")
+        UINavigationBar.appearance().tintColor = .mediumBlue
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

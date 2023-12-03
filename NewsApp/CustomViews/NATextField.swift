@@ -28,12 +28,9 @@ class NATextField: UITextField {
         font = UIFont.preferredFont(forTextStyle: .title2)
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 12
-        backgroundColor = UIColor(hex: "EADBC8")
+        backgroundColor = .darkBeige
         autocorrectionType = .no
         returnKeyType = .go
         placeholder = "Enter a country for news!"
-        
     }
-    
-
 }

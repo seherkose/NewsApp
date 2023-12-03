@@ -21,9 +21,9 @@ class AuthButton: UIButton {
         self.layer.cornerRadius = 12
         self.layer.masksToBounds = true
         
-        self.backgroundColor = hasBackground ? UIColor(hex: "235B8C") : .clear
+        self.backgroundColor = hasBackground ? .mediumBlue : .clear
         
-        let titleColor: UIColor = hasBackground ? .white : UIColor(hex: "235B8C")
+        let titleColor: UIColor = hasBackground ? .white : .mediumBlue
         self.setTitleColor(titleColor, for: .normal)
         
         switch fontSize{
@@ -33,8 +33,7 @@ class AuthButton: UIButton {
             self.titleLabel?.font = .systemFont(ofSize: 19, weight: .semibold)
         case .small:
             self.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
-        }
-        
+        } 
     }
     
     required init?(coder: NSCoder) {

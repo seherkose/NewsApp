@@ -16,7 +16,7 @@ struct UIHelper{
         let itemWidth = availableWidth 
         
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.collectionView?.backgroundColor = UIColor(hex: "F2C791")
+        flowLayout.collectionView?.backgroundColor = .beige
         flowLayout.sectionInset = UIEdgeInsets(top: padding + 20 , left: padding, bottom: padding, right: padding)
         flowLayout.itemSize = CGSize(width: itemWidth, height: itemWidth + 100)
         

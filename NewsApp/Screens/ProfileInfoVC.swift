@@ -42,7 +42,7 @@ class ProfileInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(hex: "F8F0E5")
+        self.view.backgroundColor = .beige
         //showLoadingView()
         self.termsTextView.delegate = self
         setupUI()
@@ -134,7 +134,6 @@ extension ProfileInfoVC:  UITextViewDelegate{
             
         }else if URL.scheme == "privacy"{
             self.showWebViewerController(with: "https://policies.google.com/privacy?hl=en-US")
-            
         }
         return true
     }

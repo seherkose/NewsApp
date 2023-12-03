@@ -24,7 +24,7 @@ class FavoritesListVC: UIViewController {
     }
     
     func configureViewController(){
-        view.backgroundColor = UIColor(hex: "F8F0E5")
+        view.backgroundColor = .beige
         title = Constants.FavoritesListVC.favoriteNews
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -37,7 +37,7 @@ class FavoritesListVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.reuseID)
-        tableView.backgroundColor = UIColor(hex: "F8F0E5")
+        tableView.backgroundColor = .beige
     }
     
     func getFavorites(){
@@ -70,7 +70,7 @@ extension FavoritesListVC: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.reuseID) as! FavoriteCell
         let favorite = favorites[indexPath.row]
         cell.set(favorite: favorite)
-        cell.backgroundColor = UIColor(hex: "F8F0E5")
+        cell.backgroundColor = .beige
         cell.selectionStyle = .none
         return cell
     }

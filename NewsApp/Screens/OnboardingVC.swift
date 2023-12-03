@@ -73,7 +73,7 @@ extension OnboardingVC {
         skipButton.addTarget(self, action: #selector(skipTapped(_:)), for: .primaryActionTriggered)
         
         nextButton.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.setTitleColor(UIColor(hex: "A63251"), for: .normal)
+        nextButton.setTitleColor(.darkPink, for: .normal)
         nextButton.setTitle(Constants.OnboardingVC.nextButton, for: .normal)
         nextButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         nextButton.addTarget(self, action: #selector(nextTapped(_:)), for: .primaryActionTriggered)

@@ -20,7 +20,6 @@ class AuthHeaderView: UIView {
         return topImage
     }()
     
-    
     init(title: String, subTitle: String){
         super.init(frame: .zero)
         self.titleLabel.text = title
@@ -58,6 +57,4 @@ class AuthHeaderView: UIView {
             
         ])
     }
-    
-    
 }

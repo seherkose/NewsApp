@@ -22,11 +22,10 @@ class ForgotPasswordVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        
     }
     
     private func setUpUI(){
-        self.view.backgroundColor = UIColor(hex: "F8F0E5")
+        self.view.backgroundColor = .beige
         self.view.addSubview(headerView)
         self.view.addSubview(emailField)
         self.view.addSubview(resetPasswordButton)
@@ -69,8 +68,5 @@ class ForgotPasswordVC: UIViewController {
             }
             presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.passwordResetTitle, message: Constants.ForgotPasswordVC.passwordResetMessage, buttonTitle: Constants.ForgotPasswordVC.okMessage)
         }
-        
     }
-    
-    
 }

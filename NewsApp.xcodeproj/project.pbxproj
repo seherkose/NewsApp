@@ -55,6 +55,7 @@
 		9EBBEEF62AB10BCD00A1C798 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBBEEF52AB10BCD00A1C798 /* SideMenuVC.swift */; };
 		9ECE8C9D2AB3285A00AEEFBE /* SetOnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE8C9C2AB3285A00AEEFBE /* SetOnboardingVC.swift */; };
 		9EE460252AB0E718006B135A /* NAEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE460242AB0E718006B135A /* NAEmptyStateView.swift */; };
+		9EEC3C382B1CB06000C1FC0E /* Color+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEC3C372B1CB06000C1FC0E /* Color+Palette.swift */; };
 		9EEF1F6A2AB45F85001794FD /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEF1F692AB45F85001794FD /* ForgotPasswordVC.swift */; };
 		9EEF1F6C2AB475C5001794FD /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEF1F6B2AB475C5001794FD /* WebViewController.swift */; };
 		9EFF757E2AABB67B002DA0BF /* InfoScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF757D2AABB67B002DA0BF /* InfoScreenVC.swift */; };
@@ -108,6 +109,7 @@
 		9EBBEEF52AB10BCD00A1C798 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		9ECE8C9C2AB3285A00AEEFBE /* SetOnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetOnboardingVC.swift; sourceTree = "<group>"; };
 		9EE460242AB0E718006B135A /* NAEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAEmptyStateView.swift; sourceTree = "<group>"; };
+		9EEC3C372B1CB06000C1FC0E /* Color+Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Palette.swift"; sourceTree = "<group>"; };
 		9EEF1F692AB45F85001794FD /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
 		9EEF1F6B2AB475C5001794FD /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		9EFF757D2AABB67B002DA0BF /* InfoScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenVC.swift; sourceTree = "<group>"; };
@@ -139,7 +141,6 @@
 		9E2506D92AA77AC400934095 = {
 			isa = PBXGroup;
 			children = (
-				9E615D7B2B1B776100314EAE /* Common */,
 				9E2506E42AA77AC400934095 /* NewsApp */,
 				9E2506E32AA77AC400934095 /* Products */,
 			);
@@ -156,6 +157,7 @@
 		9E2506E42AA77AC400934095 /* NewsApp */ = {
 			isa = PBXGroup;
 			children = (
+				9E615D7B2B1B776100314EAE /* Common */,
 				9E187D212AB7AD8500FAAB60 /* ViewModel */,
 				9EE460232AB0E6F7006B135A /* Views */,
 				9E2E3B892AA8D25C00F75525 /* Support */,
@@ -207,6 +209,7 @@
 				9E2E3B842AA8C18C00F75525 /* UIViewController+Ext.swift */,
 				9E2507012AA7D12A00934095 /* HexColorFile.swift */,
 				9E3A3A382AB70BFB00FF0A24 /* String+Extension.swift */,
+				9EEC3C372B1CB06000C1FC0E /* Color+Palette.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				9E8BBC1A2AA9DC0C0063C933 /* ErrorMessage.swift in Sources */,
 				9E2374372AB21E46005FED04 /* SideBarCell.swift in Sources */,
 				9EEF1F6A2AB45F85001794FD /* ForgotPasswordVC.swift in Sources */,
+				9EEC3C382B1CB06000C1FC0E /* Color+Palette.swift in Sources */,
 				9E333CF12AB8EBC00056B4FE /* NewsListViewModel.swift in Sources */,
 				9E8BBC1C2AA9E3CC0063C933 /* CountryCode.swift in Sources */,
 				9E2507082AA7F1B000934095 /* NewsListVC.swift in Sources */,
