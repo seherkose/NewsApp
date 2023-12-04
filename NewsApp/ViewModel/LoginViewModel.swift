@@ -11,7 +11,7 @@ protocol LoginViewModelDelegate: AnyObject{
     func showEmailValidationError()
     func showPasswordValidationError()
     func showErrorSignIn(_ message: String)
-    func successLogin(_ message: String)
+    func successLogin()
 }
 
 struct LoginViewModel{
@@ -36,6 +36,7 @@ struct LoginViewModel{
         }
         return true
     }
+    
     func signIn(email: String, password: String){
         let loginRequest = LoginUserRequest(
             email: email,
@@ -48,7 +49,7 @@ struct LoginViewModel{
                     delegate?.showErrorSignIn(error.localizedDescription)
                     return
                 }
-                delegate?.successLogin(error!.localizedDescription)
+                delegate?.successLogin()
             }
         }
     }

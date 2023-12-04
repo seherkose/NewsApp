@@ -9,7 +9,6 @@
 import UIKit
 
 class LoginVC: UIViewController {
-  
     
     var viewModel = LoginViewModel()
     
@@ -31,7 +30,6 @@ class LoginVC: UIViewController {
         self.forgotPasswordButton.addTarget(self, action: #selector(didTapForgotPassword), for: .touchUpInside)
         
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -106,11 +104,11 @@ class LoginVC: UIViewController {
 
 extension LoginVC: LoginViewModelDelegate {
     
-    func successLogin(_ message: String) {
+    func successLogin() {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
             sceneDelegate.checkAuthentication()
         }else{
-            presentNAAlertOnMainThread(title: Constants.Login.errorMessage, message: message, buttonTitle: Constants.Login.okMessage)
+            presentNAAlertOnMainThread(title: Constants.Login.errorMessage, message: "Unexpected error!", buttonTitle: Constants.Login.okMessage)
         }
     }
     

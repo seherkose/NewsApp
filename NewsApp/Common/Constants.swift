@@ -85,6 +85,9 @@ struct Constants {
     
     struct WebViewControllerVC {
         static let done = "Done"
-        
     }
+    
+//    struct RegisterVC {
+//        
+//    }
 }

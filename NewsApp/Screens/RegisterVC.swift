@@ -9,6 +9,8 @@ import UIKit
 
 class RegisterVC: UIViewController {
     
+    var viewModel = RegisterViewModel()
+    
     private let headerView = AuthHeaderView(title: "SIGN UP", subTitle: "Create Your Account")
     
     private let usernameField = AuthTextField(fieldType: .username)
@@ -18,7 +20,6 @@ class RegisterVC: UIViewController {
     private let signUpButton = AuthButton(title: "Sign Up", hasBackground: true, fontSize: .big)
     private let signInButton = AuthButton(title: "Already have an account? Sign In", fontSize: .med)
     
-    //MARK: - TAŞINACAK
     private let termsTextView: UITextView={
         let attributedString = NSMutableAttributedString(string: "By creating an account, you agree to our Terms & Conditions and acknowledge that you have read the Privacy Policy.")
         attributedString.addAttribute(.link, value: "terms://termsAndConditions", range: (attributedString.string as NSString).range(of: "Terms & Conditions"))
@@ -40,6 +41,9 @@ class RegisterVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.delegate = self
+        
         self.setUpUI()
         self.termsTextView.delegate = self
         
@@ -113,42 +117,11 @@ class RegisterVC: UIViewController {
     }
     
     @objc private func didTapSignUp(){
-        let registerUserRequest = RegisterUserRequest(
-            username: self.usernameField.text ?? "",
-            email: self.emailField.text ?? "",
-            password: self.passwordField.text ?? ""
-        )
-        //username check
-        if !Validator.isValidUsername(for: registerUserRequest.username){
-            presentNAAlertOnMainThread(title: "Invalid Username", message: "Please enter a valid username!", buttonTitle: "OK")
-            return
-        }
-        //email check
-        if !Validator.isValidEmail(for: registerUserRequest.email){
-            presentNAAlertOnMainThread(title: "Invalid Email", message: "Please enter a valid email!", buttonTitle: "OK")
-            return
-        }
-        //password check
-        if !Validator.isValidPassword(for: registerUserRequest.password){
-            presentNAAlertOnMainThread(title: "Invalid Password", message: "Your password must be at least 6 character and must contain 1 character, 1 number, and 1 uppercase letter", buttonTitle: "OK")
-            return
-        }
-        AuthService.shared.registerUser(with: registerUserRequest) { [weak self] wasRegistered, error in
-            guard let self = self else{return}
-            if let error = error{
-                presentNAAlertOnMainThread(title: "Error", message: error.localizedDescription, buttonTitle: "OK")
-            }
-            if wasRegistered{
-                if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
-                    sceneDelegate.checkAuthentication()
-                }else{
-                    presentNAAlertOnMainThread(title: "Error", message: error!.localizedDescription, buttonTitle: "OK")
-                }
-            }
-            
-            print(registerUserRequest)
-        }
+        viewModel.signUp(username: usernameField.text ?? "", email: emailField.text ?? "" , password: passwordField.text ?? "")
     }
+    
+    
+    
     @objc private func didTapSignIn(){
         self.navigationController?.popViewController(animated: true)
     }
@@ -179,5 +152,34 @@ extension RegisterVC:  UITextViewDelegate{
         textView.selectedTextRange = nil
         textView.delegate = self
     }
+    
+}
+
+extension RegisterVC: RegisterViewModelDelegate {
+    
+    func successSignUp() {
+        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
+            sceneDelegate.checkAuthentication()
+        }else{
+            presentNAAlertOnMainThread(title: "Error", message: "Unexpected Error!", buttonTitle: "OK")
+        }
+    }
+    
+    func showErrorSignUp(_ message: String) {
+        presentNAAlertOnMainThread(title: "Error", message: message, buttonTitle: "OK")
+    }
+    
+    func showPasswordValidatorError() {
+        presentNAAlertOnMainThread(title: "Invalid Password", message: "Your password must be at least 6 character and must contain 1 character, 1 number, and 1 uppercase letter", buttonTitle: "OK")
+    }
+    
+    func showEmailValidatorError() {
+        presentNAAlertOnMainThread(title: "Invalid Email", message: "Please enter a valid email!", buttonTitle: "OK")
+    }
+    
+    func showUsernameValidationError() {
+        presentNAAlertOnMainThread(title: "Invalid Username", message: "Please enter a valid username!", buttonTitle: "OK")
+    }
+    
     
 }
