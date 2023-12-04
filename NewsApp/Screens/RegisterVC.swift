@@ -152,7 +152,6 @@ extension RegisterVC:  UITextViewDelegate{
         textView.selectedTextRange = nil
         textView.delegate = self
     }
-    
 }
 
 extension RegisterVC: RegisterViewModelDelegate {
@@ -161,24 +160,23 @@ extension RegisterVC: RegisterViewModelDelegate {
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
             sceneDelegate.checkAuthentication()
         }else{
-            presentNAAlertOnMainThread(title: "Error", message: "Unexpected Error!", buttonTitle: "OK")
+            presentNAAlertOnMainThread(title: Constants.RegisterVC.errorMessage, message: Constants.RegisterVC.unexpectedError, buttonTitle: Constants.RegisterVC.okMessage)
         }
     }
-    
     func showErrorSignUp(_ message: String) {
-        presentNAAlertOnMainThread(title: "Error", message: message, buttonTitle: "OK")
+        presentNAAlertOnMainThread(title: Constants.RegisterVC.errorMessage, message: message, buttonTitle: Constants.RegisterVC.okMessage)
     }
     
     func showPasswordValidatorError() {
-        presentNAAlertOnMainThread(title: "Invalid Password", message: "Your password must be at least 6 character and must contain 1 character, 1 number, and 1 uppercase letter", buttonTitle: "OK")
+        presentNAAlertOnMainThread(title: Constants.RegisterVC.invalidPassword, message: Constants.RegisterVC.invalidPasswordMessage, buttonTitle: Constants.RegisterVC.okMessage)
     }
     
     func showEmailValidatorError() {
-        presentNAAlertOnMainThread(title: "Invalid Email", message: "Please enter a valid email!", buttonTitle: "OK")
+        presentNAAlertOnMainThread(title: Constants.RegisterVC.invalidEmail, message: Constants.RegisterVC.invalidEmailMessage, buttonTitle: Constants.RegisterVC.okMessage)
     }
     
     func showUsernameValidationError() {
-        presentNAAlertOnMainThread(title: "Invalid Username", message: "Please enter a valid username!", buttonTitle: "OK")
+        presentNAAlertOnMainThread(title: Constants.RegisterVC.invalidUserName, message: Constants.RegisterVC.invalidUserName, buttonTitle: Constants.RegisterVC.okMessage)
     }
     
     

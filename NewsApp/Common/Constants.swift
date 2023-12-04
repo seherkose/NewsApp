@@ -87,7 +87,15 @@ struct Constants {
         static let done = "Done"
     }
     
-//    struct RegisterVC {
-//        
-//    }
+    struct RegisterVC {
+        static let errorMessage = "ERROR"
+        static let invalidPassword = "Invalid Password"
+        static let invalidEmail = "Invalid Email"
+        static let invalidUserName = "Invalid Username"
+        static let okMessage = "OK"
+        static let unexpectedError = "Unexpected Error!"
+        static let invalidPasswordMessage = "Your password must be at least 6 character and must contain 1 character, 1 number, and 1 uppercase letter"
+        static let invalidEmailMessage = "Please enter a valid email!"
+        static let invalidUserNameMessage = "Please enter a valid username!"
+    }
 }
