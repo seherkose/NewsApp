@@ -113,11 +113,11 @@ extension LoginVC: LoginViewModelDelegate {
     }
     
     func showErrorSignIn(_ message: String) {
-    presentNAAlertOnMainThread(title: Constants.Login.signInError, message: message, buttonTitle: Constants.Login.okMessage)
+        presentNAAlertOnMainThread(title: Constants.Login.signInError, message: message, buttonTitle: Constants.Login.okMessage)
     }
     
     func showPasswordValidationError() {
-            presentNAAlertOnMainThread(title: Constants.Login.invalidPassword, message: Constants.Login.invalidPasswordMessage, buttonTitle: Constants.Login.okMessage)
+        presentNAAlertOnMainThread(title: Constants.Login.invalidPassword, message: Constants.Login.invalidPasswordMessage, buttonTitle: Constants.Login.okMessage)
     }
     
     func showEmailValidationError() {

@@ -11,6 +11,8 @@ import UIKit
 
 class NewsListVC: UIViewController {
     
+    var viewModel = NewsListViewModel()
+    
     var countryName: String!
     var article: [Article] = []
     var filteredNews: [Article] = []
@@ -24,9 +26,14 @@ class NewsListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.delegate? = self
+               
         configureViewController()
         configureCollectionView()
-        getNews(countryName: countryName, page: page)
+        
+        //getNews(countryName: countryName, page: page)
+        viewModel.getNews(countryName: countryName, page: page)
+        
         configureDataSource()
         confiureSearchController()
         
@@ -87,28 +94,7 @@ class NewsListVC: UIViewController {
         
     }
     
-    func getNews(countryName: String, page: Int) {
-        showLoadingView()
-        NetworkManager.shared.getNews(for: countryName, page: page) { [weak self] result in
-            // for unwrapping optional self result of weak
-            guard let self = self else {
-                return
-            }
-            self.dismissLoadingView()
-            switch result {
-            case .success(let news):
-                if news.articles.count < 10 {
-                    self.hasMoreNews = false
-                }
-                let uniqueArticles = Array(Set(news.articles))
-                self.article.append(contentsOf: uniqueArticles)
-                self.updateData(on: self.article)
-                
-            case .failure(let error):
-                self.presentNAAlertOnMainThread(title: Constants.NewsListVC.badStuff, message: error.rawValue, buttonTitle: Constants.NewsListVC.okMessage)
-            }
-        }
-    }
+
     
     func configureDataSource(){
         dataSource = UICollectionViewDiffableDataSource<Section, Article>(collectionView: collectionView, cellProvider: {(collectionView, indexPath, article)-> UICollectionViewCell? in
@@ -119,21 +105,6 @@ class NewsListVC: UIViewController {
         })
     }
     
-    
-    //    func updateData(on news: [Article]) {
-    //        // Filter out duplicate articles
-    //        let uniqueArticles = Array(Set(news))
-    //
-    //        var snapshot = NSDiffableDataSourceSnapshot<Section, Article>()
-    //        snapshot.appendSections([.main])
-    //        snapshot.appendItems(uniqueArticles)
-    //
-    //        DispatchQueue.main.async {
-    //            self.dataSource.apply(snapshot, animatingDifferences: true)
-    //        }
-    //    }
-    //}
-    
     func updateData(on news: [Article]){
         var snapshot = NSDiffableDataSourceSnapshot<Section, Article>()
         snapshot.appendSections([.main])
@@ -143,6 +114,8 @@ class NewsListVC: UIViewController {
         }
     }
 }
+
+
 extension NewsListVC: UICollectionViewDelegate{
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let offsetY = scrollView.contentOffset.y
@@ -153,7 +126,9 @@ extension NewsListVC: UICollectionViewDelegate{
             // if hasMoreFollowers is true then continue from page
             guard hasMoreNews else {return}
             page += 1
-            getNews(countryName: countryName, page: page)
+            
+            //getNews(countryName: countryName, page: page)
+            viewModel.getNews(countryName: countryName, page: page)
         }
     }
     
@@ -190,6 +165,7 @@ extension NewsListVC: UISearchResultsUpdating, UISearchBarDelegate{
     }
     
 }
+
 extension NewsListVC: SideMenuDelegate {
     func selectCategory(_ category: String) {
         UIView.animate(withDuration: 0.2, animations: {
@@ -215,6 +191,18 @@ extension NewsListVC: SideMenuDelegate {
             }
         }
     }
+}
+
+extension NewsListVC: NewsListViewModelDelegate{
+    func updateDataFromViewModel() {
+        updateData(on: viewModel.articleData)
+    }
+    
+    func showBadStuffAlert(_ message: String) {
+        presentNAAlertOnMainThread(title: Constants.NewsListVC.badStuff, message: message, buttonTitle: Constants.NewsListVC.okMessage)
+    }
+    
+   
 }
 
 
