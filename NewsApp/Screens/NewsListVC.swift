@@ -8,8 +8,10 @@ import UIKit
 
 class NewsListVC: UIViewController {
     
+    var viewModel = NewsListViewModel()
+    
     var countryName: String!
-    var article: [Article] = []
+    //var article: [Article] = []
     var filteredNews: [Article] = []
     var page = 1
     var hasMoreNews = true
@@ -21,9 +23,13 @@ class NewsListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.delegate = self
+        
         configureViewController()
         configureCollectionView()
-        getNews(countryName: countryName, page: page)
+        //getNews(countryName: countryName, page: page)
+        viewModel.getNews(countryName: countryName, page: page)
+        
         configureDataSource()
         confiureSearchController()
         
@@ -83,53 +89,15 @@ class NewsListVC: UIViewController {
         searchController.searchBar.layer.cornerRadius = 20
         
     }
-    
-    func getNews(countryName: String, page: Int) {
-        showLoadingView()
-        NetworkManager.shared.getNews(for: countryName, page: page) { [weak self] result in
-            // for unwrapping optional self result of weak
-            guard let self = self else {
-                return
-            }
-            self.dismissLoadingView()
-            switch result {
-            case .success(let news):
-                if news.articles.count < 10 {
-                    self.hasMoreNews = false
-                }
-                let uniqueArticles = Array(Set(news.articles))
-                self.article.append(contentsOf: uniqueArticles)
-                self.updateData(on: self.article)
-                
-            case .failure(let error):
-                self.presentNAAlertOnMainThread(title: Constants.NewsListVC.badStuff, message: error.rawValue, buttonTitle: Constants.NewsListVC.okMessage)
-            }
-        }
-    }
-    
+
     func configureDataSource(){
-        dataSource = UICollectionViewDiffableDataSource<Section, Article>(collectionView: collectionView, cellProvider: {(collectionView, indexPath, article)-> UICollectionViewCell? in
+       dataSource = UICollectionViewDiffableDataSource<Section, Article>(collectionView: collectionView, cellProvider: {(collectionView, indexPath, article)-> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewsCell.reuseID, for: indexPath) as! NewsCell
             cell.set(article: article)
             return cell
             
         })
     }
-    
-    
-    //    func updateData(on news: [Article]) {
-    //        // Filter out duplicate articles
-    //        let uniqueArticles = Array(Set(news))
-    //
-    //        var snapshot = NSDiffableDataSourceSnapshot<Section, Article>()
-    //        snapshot.appendSections([.main])
-    //        snapshot.appendItems(uniqueArticles)
-    //
-    //        DispatchQueue.main.async {
-    //            self.dataSource.apply(snapshot, animatingDifferences: true)
-    //        }
-    //    }
-    //}
     
     func updateData(on news: [Article]){
         var snapshot = NSDiffableDataSourceSnapshot<Section, Article>()
@@ -139,6 +107,7 @@ class NewsListVC: UIViewController {
             self.dataSource.apply(snapshot, animatingDifferences: true)
         }
     }
+
 }
 extension NewsListVC: UICollectionViewDelegate{
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -150,12 +119,13 @@ extension NewsListVC: UICollectionViewDelegate{
             // if hasMoreFollowers is true then continue from page
             guard hasMoreNews else {return}
             page += 1
-            getNews(countryName: countryName, page: page)
+            //getNews(countryName: countryName, page: page)
+            viewModel.getNews(countryName: countryName, page: page)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let activeArray = isSearching ? filteredNews : article
+        let activeArray = isSearching ? filteredNews : viewModel.articleData
         let article = activeArray[indexPath.item]
         
         let destVC = InfoScreenVC()
@@ -186,16 +156,17 @@ extension NewsListVC: UISearchResultsUpdating, UISearchBarDelegate{
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty else{return}
         isSearching = true
-        filteredNews = article.filter{$0.title.lowercased().contains(filter.lowercased())}
+        filteredNews = viewModel.articleData.filter{$0.title.lowercased().contains(filter.lowercased())}
         updateData(on: filteredNews)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         isSearching = false
-        updateData(on: article)
+        updateData(on: viewModel.articleData)
     }
     
 }
+
 extension NewsListVC: SideMenuDelegate {
     func selectCategory(_ category: String) {
         UIView.animate(withDuration: 0.2, animations: {
@@ -203,7 +174,7 @@ extension NewsListVC: SideMenuDelegate {
             guard let self = self else { return }
             
             self.tappedSideMenu()
-            self.article = []
+            self.viewModel.articleData = []
             self.page = 1
             
             NetworkManager.shared.getNewsByCategory(countryName: self.countryName, category: category, page: self.page) { [weak self] result in
@@ -212,8 +183,8 @@ extension NewsListVC: SideMenuDelegate {
                 switch result {
                 case .success(let news):
                     let uniqueArticles = Array(Set(news.articles))
-                    self.article.append(contentsOf: uniqueArticles)
-                    self.updateData(on: self.article)
+                    self.viewModel.articleData.append(contentsOf: uniqueArticles)
+                    self.updateData(on: self.viewModel.articleData)
                     
                 case .failure(let error):
                     print("Error fetching news by category: \(error)")
@@ -221,4 +192,15 @@ extension NewsListVC: SideMenuDelegate {
             }
         }
     }
+}
+
+extension NewsListVC: NewsListViewModelDelegate{
+    func showBadStuffAlert(_ message: String) {
+        self.presentNAAlertOnMainThread(title: Constants.NewsListVC.badStuff, message: message, buttonTitle: Constants.NewsListVC.okMessage)
+    }
+    
+    func updateDataFromViewModel() {
+        updateData(on: viewModel.articleData)
+    }
+    
 }

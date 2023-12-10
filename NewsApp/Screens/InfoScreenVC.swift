@@ -105,9 +105,7 @@ class InfoScreenVC: UIViewController, UIScrollViewDelegate{
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        //DÜZELT titleLabel.text = viewModel.articleTitle
+  
         
         titleLabel.text = viewModel.articleTitle
         dateLabel.text = viewModel.articleDate
