@@ -20,7 +20,6 @@ class ForgotPasswordViewModel{
     }
     
     private func checkEmail(_ email: String) -> Bool{
-        
         if !Validator.isValidEmail(for: email){
             // presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.errorMessage, message: Constants.ForgotPasswordVC.invalidMail, buttonTitle: Constants.ForgotPasswordVC.okMessage)
             delegate?.showEmailError()
@@ -28,7 +27,6 @@ class ForgotPasswordViewModel{
         }
         return true
     }
-    
     
     func resetPassword(email: String){
         if checkEmail(email){

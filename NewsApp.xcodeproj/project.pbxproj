@@ -39,6 +39,7 @@
 		9E615D7D2B1B77C200314EAE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E615D7C2B1B77C200314EAE /* Constants.swift */; };
 		9E75503A2AAF9B4200BA0351 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7550392AAF9B4200BA0351 /* PersistenceManager.swift */; };
 		9E8A0C132B2633D300043AEA /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A0C122B2633D300043AEA /* ForgotPasswordViewModel.swift */; };
+		9E8A0C152B26447B00043AEA /* InfoScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A0C142B26447B00043AEA /* InfoScreenViewModel.swift */; };
 		9E8BBC1A2AA9DC0C0063C933 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8BBC192AA9DC0C0063C933 /* ErrorMessage.swift */; };
 		9E8BBC1C2AA9E3CC0063C933 /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8BBC1B2AA9E3CC0063C933 /* CountryCode.swift */; };
 		9E8BBC1F2AA9F8490063C933 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8BBC1E2AA9F8490063C933 /* NewsCell.swift */; };
@@ -98,6 +99,7 @@
 		9E615D7C2B1B77C200314EAE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9E7550392AAF9B4200BA0351 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		9E8A0C122B2633D300043AEA /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		9E8A0C142B26447B00043AEA /* InfoScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoScreenViewModel.swift; sourceTree = "<group>"; };
 		9E8BBC192AA9DC0C0063C933 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		9E8BBC1B2AA9E3CC0063C933 /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
 		9E8BBC1E2AA9F8490063C933 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				9EA24C372B1D319300B339F6 /* RegisterViewModel.swift */,
 				9E9219152B22379F0054996A /* NewsListViewModel.swift */,
 				9E8A0C122B2633D300043AEA /* ForgotPasswordViewModel.swift */,
+				9E8A0C142B26447B00043AEA /* InfoScreenViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				9E8BBC1C2AA9E3CC0063C933 /* CountryCode.swift in Sources */,
 				9E2507082AA7F1B000934095 /* NewsListVC.swift in Sources */,
 				9E2E3B7F2AA8ADC000F75525 /* NATitleLabel.swift in Sources */,
+				9E8A0C152B26447B00043AEA /* InfoScreenViewModel.swift in Sources */,
 				9E478BC12AB081AA00C98F37 /* FavoriteCell.swift in Sources */,
 				9E2507002AA7A24300934095 /* OnboardingVC.swift in Sources */,
 				9E8A0C132B2633D300043AEA /* ForgotPasswordViewModel.swift in Sources */,

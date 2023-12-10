@@ -159,15 +159,24 @@ extension NewsListVC: UICollectionViewDelegate{
         let article = activeArray[indexPath.item]
         
         let destVC = InfoScreenVC()
-        destVC.articleTitle = article.title
-        destVC.articleImageURL = article.urlToImage
-        destVC.articleDescription = article.description
-        destVC.articleDate = article.publishedAt
-        destVC.articleAuthor = article.author
-        destVC.articleURL = article.url
-        destVC.articleContent = article.content
+        //destVC.articleTitle = article.title
+        //destVC.articleImageURL = article.urlToImage
+        //destVC.articleDescription = article.description
+        //destVC.articleDate = article.publishedAt
+        //destVC.articleAuthor = article.author
+        //destVC.articleURL = article.url
+        //destVC.articleContent = article.content
+        //destVC.countryName = self.countryName
         
-        destVC.countryName = self.countryName
+        destVC.viewModel.articleTitle = article.title
+        destVC.viewModel.articleURL = article.url
+        destVC.viewModel.countryName = self.countryName
+        destVC.viewModel.articleContent = article.content
+        destVC.viewModel.articleAuthor = article.publishedAt
+        destVC.viewModel.articleDescription = article.description
+        destVC.viewModel.articleImageURL = article.urlToImage
+        
+        
         let navController = UINavigationController(rootViewController: destVC)
         self.present(navController, animated: true, completion: nil)
     }
@@ -212,4 +221,4 @@ extension NewsListVC: SideMenuDelegate {
             }
         }
     }
-    }
+}

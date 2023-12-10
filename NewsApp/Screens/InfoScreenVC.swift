@@ -8,9 +8,12 @@
 import UIKit
 
 class InfoScreenVC: UIViewController, UIScrollViewDelegate{
+    
+    var viewModel = InfoScreenViewModel()
+    
     let scrollView = UIScrollView()
     
-    var countryName: String!
+    //var countryName: String!
     var page = 1
     let titleLabel = NATitleLabel(textAlignment: .left, fontSize: 23, textColor: .black)
     let dateLabel = NATitleLabel(textAlignment: .left, fontSize: 20, textColor: .gray)
@@ -18,13 +21,13 @@ class InfoScreenVC: UIViewController, UIScrollViewDelegate{
     let contentLabel = NABodyLabel(textAlignment: .left, fontSize: 18, textColor: .black)
     let authorLabel = NATitleLabel (textAlignment: .left, fontSize: 18, textColor: .darkGray)
     
-    var articleTitle: String?
-    var articleImageURL: String?
-    var articleDescription: String?
-    var articleDate: String?
-    var articleAuthor: String?
-    var articleURL: String?
-    var articleContent: String?
+    //var articleTitle: String?
+    //var articleImageURL: String?
+    //var articleDescription: String?
+    //var articleDate: String?
+    //var articleAuthor: String?
+    //var articleURL: String?
+    //var articleContent: String?
     
     let articleImageView: UIImageView = {
         let imageView = UIImageView()
@@ -43,11 +46,13 @@ class InfoScreenVC: UIViewController, UIScrollViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.delegate = self
+        
         configureViewController()
         configure()
         scrollView.delegate = self
     }
-    
     
     func configureViewController(){
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
@@ -56,66 +61,10 @@ class InfoScreenVC: UIViewController, UIScrollViewDelegate{
         navigationItem.rightBarButtonItem = favoriteButton
         
         view.backgroundColor = .beige
-        
     }
-    
     
     @objc func favoriteButtonTapped() {
-        guard let articleURL = articleURL else {
-            print("Article URL is missing")
-            return
-        }
-        PersistenceManager.isArticleInFavorites(articleURL: articleURL) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let isArticleAlreadyInFavorites):
-                if isArticleAlreadyInFavorites {
-                    self.presentNAAlertOnMainThread(title: Constants.InfoScreen.alreadyFavorited, message: Constants.InfoScreen.alreadyFavoritedMessage, buttonTitle: Constants.InfoScreen.okMessage)
-                } else {
-                    self.addArticleToFavorites(articleURL: articleURL)
-                }
-                
-            case .failure(let error):
-                self.presentNAAlertOnMainThread(title: Constants.InfoScreen.errorMessage, message: error.rawValue, buttonTitle: Constants.InfoScreen.okMessage)
-            }
-        }
-    }
-    
-    func addArticleToFavorites(articleURL: String) {
-        NetworkManager.shared.getNews(for: countryName, page: 1) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let news):
-                if let selectedArticle = news.articles.first(where: { $0.url == articleURL }) {
-                    let title = selectedArticle.title
-                    let favorite = Article(
-                        author: selectedArticle.author,
-                        title: title,
-                        description: selectedArticle.description,
-                        url: articleURL,
-                        urlToImage: selectedArticle.urlToImage,
-                        publishedAt: selectedArticle.publishedAt,
-                        content: selectedArticle.content
-                    )
-                    PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] error in
-                        guard let self = self else { return }
-                        
-                        if let error = error {
-                            self.presentNAAlertOnMainThread(title: Constants.InfoScreen.wentWrongMessage, message: error.rawValue, buttonTitle: Constants.InfoScreen.okMessage)
-                        } else {
-                            self.presentNAAlertOnMainThread(title: Constants.InfoScreen.successTitle, message: Constants.InfoScreen.successMessage, buttonTitle: Constants.InfoScreen.okMessage)
-                        }
-                    }
-                } else {
-                    self.presentNAAlertOnMainThread(title: Constants.InfoScreen.errorMessage, message: Constants.InfoScreen.articleNotFound, buttonTitle: Constants.InfoScreen.okMessage)
-                }
-                
-            case .failure(let error):
-                self.presentNAAlertOnMainThread(title: Constants.InfoScreen.errorFetchingNews, message: error.rawValue, buttonTitle: Constants.InfoScreen.okMessage)
-            }
-        }
+        viewModel.favoriteButton()
     }
     
     private func configure() {
@@ -157,11 +106,21 @@ class InfoScreenVC: UIViewController, UIScrollViewDelegate{
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
         authorLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.text = articleTitle
-        dateLabel.text = articleDate
-        descriptionLabel.text = articleDescription
-        authorLabel.text = "Author: \(articleAuthor ?? "00")"
-        contentLabel.text = articleContent
+        
+        //DÜZELT titleLabel.text = viewModel.articleTitle
+        
+        titleLabel.text = viewModel.articleTitle
+        dateLabel.text = viewModel.articleDate
+        descriptionLabel.text = viewModel.articleDescription
+        authorLabel.text = "Author: \(viewModel.articleAuthor ?? "00")"
+        contentLabel.text = viewModel.articleContent
+        
+        
+        //        titleLabel.text = articleTitle
+        //        dateLabel.text = articleDate
+        //        descriptionLabel.text = articleDescription
+        //        authorLabel.text = "Author: \(articleAuthor ?? "00")"
+        //        contentLabel.text = articleContent
         
         
         NSLayoutConstraint.activate([
@@ -192,7 +151,7 @@ class InfoScreenVC: UIViewController, UIScrollViewDelegate{
             authorLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
         ])
         
-        if let imageURL = articleImageURL, let url = URL(string: imageURL) {
+        if let imageURL = viewModel.articleImageURL, let url = URL(string: imageURL) {
             URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
                 if let data = data, let image = UIImage(data: data) {
                     DispatchQueue.main.async {
@@ -206,4 +165,40 @@ class InfoScreenVC: UIViewController, UIScrollViewDelegate{
     @objc func dismissVC(){
         dismiss(animated: true)
     }
+}
+
+extension InfoScreenVC: InfoScreenViewModelDelegate{
+    func errorMessage(_ message: String) {
+        self.presentNAAlertOnMainThread(title: Constants.InfoScreen.errorMessage, message: message, buttonTitle: Constants.InfoScreen.okMessage)
+    }
+    
+    func alreadyFavorites() {
+        self.presentNAAlertOnMainThread(title: Constants.InfoScreen.alreadyFavorited, message: Constants.InfoScreen.alreadyFavoritedMessage, buttonTitle: Constants.InfoScreen.okMessage)
+    }
+    
+    func errorFetchingNews(_ message: String) {
+        self.presentNAAlertOnMainThread(title: Constants.InfoScreen.errorFetchingNews, message: message , buttonTitle: Constants.InfoScreen.okMessage)
+    }
+    
+    func articleNotFound() {
+        self.presentNAAlertOnMainThread(title: Constants.InfoScreen.errorMessage, message: Constants.InfoScreen.articleNotFound, buttonTitle: Constants.InfoScreen.okMessage)
+    }
+    
+    func successMessage() {
+        self.presentNAAlertOnMainThread(title: Constants.InfoScreen.successTitle, message: Constants.InfoScreen.successMessage, buttonTitle: Constants.InfoScreen.okMessage)
+    }
+    
+    func wentWrongMessage(_ message: String) {
+        self.presentNAAlertOnMainThread(title: Constants.InfoScreen.wentWrongMessage, message: message, buttonTitle: Constants.InfoScreen.okMessage)
+    }
+    
+    func articleURLisMissing() {
+        print("Article URL is missing")
+    }
+    
+    func articleURLisNotMissing() {
+        print("Article url is not missing")
+    }
+    
+    
 }

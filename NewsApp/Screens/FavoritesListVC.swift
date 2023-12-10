@@ -79,12 +79,19 @@ extension FavoritesListVC: UITableViewDataSource, UITableViewDelegate{
         let favorite = favorites[indexPath.row]
         let destVC = InfoScreenVC()
         
-        destVC.articleTitle = favorite.title
-        destVC.articleImageURL = favorite.urlToImage
-        destVC.articleDescription = favorite.description
-        destVC.articleDate = favorite.publishedAt
-        destVC.articleAuthor = favorite.author
-        destVC.articleContent = favorite.content
+        destVC.viewModel.articleTitle = favorite.title
+        destVC.viewModel.articleImageURL = favorite.urlToImage
+        destVC.viewModel.articleDescription = favorite.description
+        destVC.viewModel.articleDate = favorite.publishedAt
+        destVC.viewModel.articleAuthor = favorite.author
+        destVC.viewModel.articleContent = favorite.content
+        
+        //        destVC.articleTitle = favorite.title
+        //        destVC.articleImageURL = favorite.urlToImage
+        //        destVC.articleDescription = favorite.description
+        //        destVC.articleDate = favorite.publishedAt
+        //        destVC.articleAuthor = favorite.author
+        //        destVC.articleContent = favorite.content
         
         let navController = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
