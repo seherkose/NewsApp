@@ -47,6 +47,7 @@ struct Constants {
         static let passwordReset = "Error Password Reset!"
         static let passwordResetTitle = "Password Reset"
         static let passwordResetMessage = "The password reset link has been sent to your email address."
+        static let resetPassword = "Reset Password"
     }
     struct OnboardingVC {
         struct page1 {

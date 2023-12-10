@@ -9,14 +9,19 @@ import UIKit
 
 class ForgotPasswordVC: UIViewController {
     
+    var viewModel = ForgotPasswordViewModel()
+    
     private let headerView = AuthHeaderView(title: Constants.ForgotPasswordVC.headerForgotPassword, subTitle: Constants.ForgotPasswordVC.headerForgotPasswordSubTitle)
     private let emailField = AuthTextField(fieldType: .email)
-    private let resetPasswordButton = AuthButton(title: Constants.ForgotPasswordVC.signUp, hasBackground: true, fontSize: .big)
+    private let resetPasswordButton = AuthButton(title: Constants.ForgotPasswordVC.resetPassword, hasBackground: true, fontSize: .big)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.delegate = self
+        
         setUpUI()
-        self.resetPasswordButton.addTarget(self, action: #selector(didTappedForgotPassword), for: .touchUpInside)
+        self.resetPasswordButton.addTarget(self, action: #selector(didTappedResetPassword), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,21 +57,39 @@ class ForgotPasswordVC: UIViewController {
         ])
     }
     
-    @objc private func didTappedForgotPassword(){
-        let email = self.emailField.text ?? ""
-        
-        if !Validator.isValidEmail(for: email){
-            presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.errorMessage, message: Constants.ForgotPasswordVC.invalidMail, buttonTitle: Constants.ForgotPasswordVC.okMessage)
-            return
-        }
-        
-        AuthService.shared.forgotPassword(with: email) { [weak self] error in
-            guard let self = self else { return }
-            if let error = error{
-                presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.passwordReset, message: error.localizedDescription, buttonTitle: Constants.ForgotPasswordVC.okMessage)
-                return
-            }
-            presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.passwordResetTitle, message: Constants.ForgotPasswordVC.passwordResetMessage, buttonTitle: Constants.ForgotPasswordVC.okMessage)
-        }
+    @objc private func didTappedResetPassword(){
+        //let email = self.emailField.text ?? ""
+        viewModel.resetPassword(email: self.emailField.text ?? "")
+        //
+        //        if !Validator.isValidEmail(for: email){
+        //            presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.errorMessage, message: Constants.ForgotPasswordVC.invalidMail, buttonTitle: Constants.ForgotPasswordVC.okMessage)
+        //            return
+        //        }
+        //
+        //        AuthService.shared.forgotPassword(with: email) { [weak self] error in
+        //            guard let self = self else { return }
+        //            if let error = error{
+        //                presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.passwordReset, message: error.localizedDescription, buttonTitle: Constants.ForgotPasswordVC.okMessage)
+        //                return
+        //            }
+        //            presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.passwordResetTitle, message: Constants.ForgotPasswordVC.passwordResetMessage, buttonTitle: Constants.ForgotPasswordVC.okMessage)
+        //        }
     }
 }
+
+extension ForgotPasswordVC: ForgotPasswordDelegate{
+    func showPasswordResetMessage() {
+        presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.passwordResetTitle, message: Constants.ForgotPasswordVC.passwordResetMessage, buttonTitle: Constants.ForgotPasswordVC.okMessage)
+    }
+    
+    func showErrorPasswordReset(_ message: String) {
+        presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.passwordReset, message: message, buttonTitle: Constants.ForgotPasswordVC.okMessage)
+    }
+    
+    func showEmailError() {
+        presentNAAlertOnMainThread(title: Constants.ForgotPasswordVC.errorMessage, message: Constants.ForgotPasswordVC.invalidMail, buttonTitle: Constants.ForgotPasswordVC.okMessage)
+    }
+    
+}
+
+

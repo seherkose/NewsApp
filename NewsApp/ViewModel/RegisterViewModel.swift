@@ -20,7 +20,6 @@ struct RegisterViewModel{
     
     init(){}
     
-    @discardableResult
     private func checkUserName(_ userName: String) -> Bool{
         //username check
         if !Validator.isValidUsername(for: userName){
