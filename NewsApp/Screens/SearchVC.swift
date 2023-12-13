@@ -25,7 +25,6 @@ class SearchVC: UIViewController {
         configureCallToActionButton()
         createDismissKeyboardTapGesture()
         configureViewController()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
