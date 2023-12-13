@@ -119,8 +119,6 @@ class RegisterVC: UIViewController {
         viewModel.signUp(username: usernameField.text ?? "", email: emailField.text ?? "" , password: passwordField.text ?? "")
     }
     
-    
-    
     @objc private func didTapSignIn(){
         self.navigationController?.popViewController(animated: true)
     }
@@ -177,6 +175,5 @@ extension RegisterVC: RegisterViewModelDelegate {
     func showUsernameValidationError() {
         presentNAAlertOnMainThread(title: Constants.RegisterVC.invalidUserName, message: Constants.RegisterVC.invalidUserName, buttonTitle: Constants.RegisterVC.okMessage)
     }
-    
-    
+
 }

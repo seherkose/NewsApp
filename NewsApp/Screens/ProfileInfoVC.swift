@@ -46,7 +46,6 @@ class ProfileInfoVC: UIViewController {
         super.viewDidLoad()
         viewModel.delegate = self
         self.view.backgroundColor = .beige
-        //showLoadingView()
         self.termsTextView.delegate = self
         setupUI()
         
@@ -96,16 +95,7 @@ class ProfileInfoVC: UIViewController {
     }
     
     @objc private func didTapLogOut(){
-        AuthService.shared.signOut { [weak self] error in
-            guard let self = self else{return}
-            if let error = error {
-                presentNAAlertOnMainThread(title: Constants.ProfileInfoVC.errorMessage, message: error.localizedDescription, buttonTitle: Constants.ProfileInfoVC.okMessage)
-                return
-            }
-            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
-                sceneDelegate.checkAuthentication()
-            }
-        }
+        viewModel.logOut()
     }
     
     @objc private func didTapForgotPassword(){
@@ -138,7 +128,6 @@ extension ProfileInfoVC:  UITextViewDelegate{
         textView.selectedTextRange = nil
         textView.delegate = self
     }
-    
 }
 
 extension ProfileInfoVC: ProfileInfoViewModelDelegate{
@@ -151,8 +140,6 @@ extension ProfileInfoVC: ProfileInfoViewModelDelegate{
     func errorMessage(_ message: String) {
         presentNAAlertOnMainThread(title: Constants.ProfileInfoVC.errorMessage, message: message, buttonTitle: Constants.ProfileInfoVC.okMessage)
     }
-    
-    
 }
 
 
