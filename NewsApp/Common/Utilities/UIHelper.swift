@@ -13,7 +13,7 @@ struct UIHelper{
         let padding: CGFloat  = 8
         let minimumItemSpacing: CGFloat = 20
         let availableWidth = width - (padding) - (minimumItemSpacing)
-        let itemWidth = availableWidth 
+        let itemWidth = availableWidth
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.collectionView?.backgroundColor = .beige

@@ -67,7 +67,7 @@ struct Constants {
         }
         static let nextButton = "NEXT"
         static let skipButton = "SKIP"
-
+        
     }
     struct FavoritesListVC {
         static let favoriteNews = "Favorite News"

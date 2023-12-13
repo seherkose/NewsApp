@@ -26,8 +26,4 @@ struct Article: Codable, Hashable, Equatable {
     let content: String?
 }
 
-// MARK: - Source
-//struct Source: Codable, Hashable {
-//    let id: String?
-//    let name: String
-//}
+

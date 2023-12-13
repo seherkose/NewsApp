@@ -7,12 +7,12 @@
 
 import Foundation
 
-    enum Categories: String, CaseIterable{
-        case business = "Business"
-        case entertainment = "Entertainment"
-        case general = "General"
-        case health = "Health"
-        case science = "Science"
-        case sports = "Sports"
-        case technology = "Technology"
-    }
+enum Categories: String, CaseIterable{
+    case business = "Business"
+    case entertainment = "Entertainment"
+    case general = "General"
+    case health = "Health"
+    case science = "Science"
+    case sports = "Sports"
+    case technology = "Technology"
+}

@@ -9,6 +9,8 @@ import UIKit
 
 class ProfileInfoVC: UIViewController {
     
+    var viewModel = ProfileInfoViewModel()
+    
     private let headerImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "logo"))
         imageView.contentMode = .scaleAspectFill
@@ -42,6 +44,7 @@ class ProfileInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
         self.view.backgroundColor = .beige
         //showLoadingView()
         self.termsTextView.delegate = self
@@ -103,7 +106,6 @@ class ProfileInfoVC: UIViewController {
                 sceneDelegate.checkAuthentication()
             }
         }
-        
     }
     
     @objc private func didTapForgotPassword(){
@@ -136,6 +138,20 @@ extension ProfileInfoVC:  UITextViewDelegate{
         textView.selectedTextRange = nil
         textView.delegate = self
     }
+    
+}
+
+extension ProfileInfoVC: ProfileInfoViewModelDelegate{
+    func checkAuth() {
+        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
+            sceneDelegate.checkAuthentication()
+        }
+    }
+    
+    func errorMessage(_ message: String) {
+        presentNAAlertOnMainThread(title: Constants.ProfileInfoVC.errorMessage, message: message, buttonTitle: Constants.ProfileInfoVC.okMessage)
+    }
+    
     
 }
 
