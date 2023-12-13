@@ -11,19 +11,19 @@ class RegisterVC: UIViewController {
     
     var viewModel = RegisterViewModel()
     
-    private let headerView = AuthHeaderView(title: "SIGN UP", subTitle: "Create Your Account")
+    private let headerView = AuthHeaderView(title: Constants.RegisterVC.signUpTitle, subTitle: Constants.RegisterVC.createAccount)
     
     private let usernameField = AuthTextField(fieldType: .username)
     private let emailField = AuthTextField(fieldType: .email)
     private let passwordField = AuthTextField(fieldType: .password)
     
-    private let signUpButton = AuthButton(title: "Sign Up", hasBackground: true, fontSize: .big)
-    private let signInButton = AuthButton(title: "Already have an account? Sign In", fontSize: .med)
+    private let signUpButton = AuthButton(title: Constants.RegisterVC.signUpTitle, hasBackground: true, fontSize: .big)
+    private let signInButton = AuthButton(title: Constants.RegisterVC.alreadyHaveAccount, fontSize: .med)
     
     private let termsTextView: UITextView={
-        let attributedString = NSMutableAttributedString(string: "By creating an account, you agree to our Terms & Conditions and acknowledge that you have read the Privacy Policy.")
-        attributedString.addAttribute(.link, value: "terms://termsAndConditions", range: (attributedString.string as NSString).range(of: "Terms & Conditions"))
-        attributedString.addAttribute(.link, value: "privacy://privacyPolicy", range: (attributedString.string as NSString).range(of: "Privacy Policy"))
+        let attributedString = NSMutableAttributedString(string: Constants.RegisterVC.message)
+        attributedString.addAttribute(.link, value: Constants.RegisterVC.termsAndCondLink, range: (attributedString.string as NSString).range(of: Constants.RegisterVC.termsAndCond))
+        attributedString.addAttribute(.link, value: Constants.RegisterVC.privacyPolicyLink, range: (attributedString.string as NSString).range(of: Constants.RegisterVC.privacyPolicy))
         
         let tv = UITextView()
         tv.linkTextAttributes = [.foregroundColor: UIColor.systemBlue]
@@ -111,7 +111,6 @@ class RegisterVC: UIViewController {
             self.termsTextView.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 6),
             self.termsTextView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             self.termsTextView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.80)
-            
         ])
         
     }
@@ -132,10 +131,10 @@ extension RegisterVC:  UITextViewDelegate{
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         
         if URL.scheme == "terms"{
-            self.showWebViewerController(with: "https://policies.google.com/terms?hl=en-US")
+            self.showWebViewerController(with: Constants.RegisterVC.policyLink)
             
         }else if URL.scheme == "privacy"{
-            self.showWebViewerController(with: "https://policies.google.com/privacy?hl=en-US")
+            self.showWebViewerController(with: Constants.RegisterVC.policyLink)
             
         }
         return true

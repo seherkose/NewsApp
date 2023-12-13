@@ -17,14 +17,14 @@ class ProfileInfoVC: UIViewController {
     }()
     
     let label = NATitleLabel(textAlignment: .center, fontSize: 20, textColor: .gray)
-    private let logOutButton = AuthButton(title: "Log Out", hasBackground: true, fontSize: .big)
-    private let forgotPasswordButton = AuthButton(title: "Change Password", hasBackground: true, fontSize: .big)
+    private let logOutButton = AuthButton(title: Constants.ProfileInfoVC.logOut, hasBackground: true, fontSize: .big)
+    private let forgotPasswordButton = AuthButton(title: Constants.ProfileInfoVC.changePassword, hasBackground: true, fontSize: .big)
     
     private let termsTextView: UITextView={
-        let attributedString = NSMutableAttributedString(string: "Terms & Conditions\n Privacy Policy")
-        attributedString.addAttribute(.link, value: "terms://termsAndConditions", range: (attributedString.string as NSString).range(of: "Terms & Conditions"))
+        let attributedString = NSMutableAttributedString(string: Constants.ProfileInfoVC.attributedString)
+        attributedString.addAttribute(.link, value: Constants.ProfileInfoVC.termsAndCondLink, range: (attributedString.string as NSString).range(of: Constants.ProfileInfoVC.termsAndCond))
         
-        attributedString.addAttribute(.link, value: "privacy://privacyPolicy", range: (attributedString.string as NSString).range(of: "Privacy Policy"))
+        attributedString.addAttribute(.link, value: Constants.ProfileInfoVC.privacyPolicyLink, range: (attributedString.string as NSString).range(of: Constants.ProfileInfoVC.privacyPolicy))
         
         let tv = UITextView()
         tv.linkTextAttributes = [.foregroundColor: UIColor.systemBlue]
@@ -46,19 +46,6 @@ class ProfileInfoVC: UIViewController {
         //showLoadingView()
         self.termsTextView.delegate = self
         setupUI()
-        
-//        AuthService.shared.fetchUser { [weak self] authuser, error in
-//            guard let self = self else {return}
-//            if let error = error{
-//                presentNAAlertOnMainThread(title: "Error!", message: "Fetching User Error", buttonTitle: "OK")
-//                return
-//            }
-//            if let authuser = authuser {
-//                dismissLoadingView()
-//                setupUI()
-//                self.label.text = "Username: \n \(authuser.username)\n\n E-mail address:\n \(authuser.email)"
-//            }
-//        }
         
     }
     private func setupUI() {
@@ -109,8 +96,8 @@ class ProfileInfoVC: UIViewController {
         AuthService.shared.signOut { [weak self] error in
             guard let self = self else{return}
             if let error = error {
-                presentNAAlertOnMainThread(title: "ERROR", message: error.localizedDescription, buttonTitle: "OK")
-                return 
+                presentNAAlertOnMainThread(title: Constants.ProfileInfoVC.errorMessage, message: error.localizedDescription, buttonTitle: Constants.ProfileInfoVC.okMessage)
+                return
             }
             if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
                 sceneDelegate.checkAuthentication()
@@ -130,10 +117,10 @@ extension ProfileInfoVC:  UITextViewDelegate{
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         
         if URL.scheme == "terms"{
-            self.showWebViewerController(with: "https://policies.google.com/terms?hl=en-US")
+            self.showWebViewerController(with: Constants.ProfileInfoVC.policyLink)
             
         }else if URL.scheme == "privacy"{
-            self.showWebViewerController(with: "https://policies.google.com/privacy?hl=en-US")
+            self.showWebViewerController(with: Constants.ProfileInfoVC.policyLink)
         }
         return true
     }

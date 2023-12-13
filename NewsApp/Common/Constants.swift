@@ -98,5 +98,28 @@ struct Constants {
         static let invalidPasswordMessage = "Your password must be at least 6 character and must contain 1 character, 1 number, and 1 uppercase letter"
         static let invalidEmailMessage = "Please enter a valid email!"
         static let invalidUserNameMessage = "Please enter a valid username!"
+        static let signUpTitle = "SIGN UP"
+        static let alreadyHaveAccount = "Already have an account? Sign In"
+        static let createAccount = "Create Your Account"
+        static let message = "By creating an account, you agree to our Terms & Conditions and acknowledge that you have read the Privacy Policy."
+        static let termsAndCondLink = "terms://termsAndConditions"
+        static let termsAndCond = "Terms & Conditions"
+        static let privacyPolicyLink = "privacy://privacyPolicy"
+        static let privacyPolicy = "Privacy Policy"
+        static let policyLink = "https://policies.google.com/terms?hl=en-US"
+    }
+    
+    struct ProfileInfoVC {
+        static let logOut = "Log Out"
+        static let changePassword = "Change Password"
+        static let attributedString =  "Terms & Conditions\n Privacy Policy"
+        static let termsAndCondLink = "terms://termsAndConditions"
+        static let termsAndCond = "Terms & Conditions"
+        static let privacyPolicyLink = "privacy://privacyPolicy"
+        static let privacyPolicy = "Privacy Policy"
+        static let policyLink = "https://policies.google.com/terms?hl=en-US"
+        static let errorMessage = "ERROR"
+        static let okMessage = "OK"
+        
     }
 }
